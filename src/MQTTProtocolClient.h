@@ -22,7 +22,7 @@
 
 #include "LinkedList.h"
 #include "MQTTPacket.h"
-#include "Log.h"
+#include "conf.h"
 #include "MQTTProtocol.h"
 #include "Messages.h"
 

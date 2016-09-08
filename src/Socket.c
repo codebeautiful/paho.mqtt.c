@@ -25,7 +25,7 @@
 
 
 #include "Socket.h"
-#include "Log.h"
+#include "conf.h"
 #include "SocketBuffer.h"
 #include "Messages.h"
 #include "StackTrace.h"
@@ -98,8 +98,8 @@ int Socket_error(char* aString, int sock)
 #endif
 	if (errno != EINTR && errno != EAGAIN && errno != EINPROGRESS && errno != EWOULDBLOCK)
 	{
-		if (strcmp(aString, "shutdown") != 0 || (errno != ENOTCONN && errno != ECONNRESET))
-			Log(TRACE_MINIMUM, -1, "Socket error %s in %s for socket %d", strerror(errno), aString, sock);
+//		if (strcmp(aString, "shutdown") != 0 || (errno != ENOTCONN && errno != ECONNRESET))
+//			Log(TRACE_MINIMUM, -1, "Socket error %s in %s for socket %d", strerror(errno), aString, sock);
 	}
 	FUNC_EXIT_RC(errno);
 	return errno;
@@ -170,8 +170,8 @@ int Socket_addSocket(int newSd)
 		s.maxfdp1 = max(s.maxfdp1, newSd + 1);
 		rc = Socket_setnonblocking(newSd);
 	}
-	else
-		Log(LOG_ERROR, -1, "addSocket: socket %d already in the list", newSd);
+//	else
+//		Log(LOG_ERROR, -1, "addSocket: socket %d already in the list", newSd);
 
 	FUNC_EXIT_RC(rc);
 	return rc;
@@ -242,7 +242,7 @@ int Socket_getReadySocket(int more_work, struct timeval *tp)
 			Socket_error("read select", 0);
 			goto exit;
 		}
-		Log(TRACE_MAX, -1, "Return code %d from read select", rc);
+//		Log(TRACE_MAX, -1, "Return code %d from read select", rc);
 
 		if (Socket_continueWrites(&pwset) == SOCKET_ERROR)
 		{
@@ -257,7 +257,7 @@ int Socket_getReadySocket(int more_work, struct timeval *tp)
 			rc = rc1;
 			goto exit;
 		}
-		Log(TRACE_MAX, -1, "Return code %d from write select", rc1);
+//		Log(TRACE_MAX, -1, "Return code %d from write select", rc1);
 
 		if (rc == 0 && rc1 == 0)
 			goto exit; /* no work to do */
@@ -365,7 +365,7 @@ char *Socket_getdata(int socket, size_t bytes, size_t* actual_len)
 	else /* we didn't read the whole packet */
 	{
 		SocketBuffer_interrupted(socket, *actual_len);
-		Log(TRACE_MAX, -1, "%d bytes expected but %d bytes now received", bytes, *actual_len);
+//		Log(TRACE_MAX, -1, "%d bytes expected but %d bytes now received", bytes, *actual_len);
 	}
 exit:
 	FUNC_EXIT;
@@ -445,7 +445,7 @@ int Socket_putdatas(int socket, char* buf0, size_t buf0len, int count, char** bu
 	FUNC_ENTRY;
 	if (!Socket_noPendingWrites(socket))
 	{
-		Log(LOG_SEVERE, -1, "Trying to write to socket %d for which there is already pending output", socket);
+//		Log(LOG_SEVERE, -1, "Trying to write to socket %d for which there is already pending output", socket);
 		rc = SOCKET_ERROR;
 		goto exit;
 	}
@@ -470,8 +470,8 @@ int Socket_putdatas(int socket, char* buf0, size_t buf0len, int count, char** bu
 		else
 		{
 			int* sockmem = (int*)malloc(sizeof(int));
-			Log(TRACE_MIN, -1, "Partial write: %ld bytes of %d actually written on socket %d",
-					bytes, total, socket);
+//			Log(TRACE_MIN, -1, "Partial write: %ld bytes of %d actually written on socket %d",
+//					bytes, total, socket);
 #if defined(OPENSSL)
 			SocketBuffer_pendingWrite(socket, NULL, count+1, iovecs, frees1, total, bytes);
 #else
@@ -558,10 +558,10 @@ void Socket_close(int socket)
 	ListRemoveItem(s.write_pending, &socket, intcompare);
 	SocketBuffer_cleanup(socket);
 
-	if (ListRemoveItem(s.clientsds, &socket, intcompare))
-		Log(TRACE_MIN, -1, "Removed socket %d", socket);
-	else
-		Log(LOG_ERROR, -1, "Failed to remove socket %d", socket);
+//	if (ListRemoveItem(s.clientsds, &socket, intcompare))
+//		Log(TRACE_MIN, -1, "Removed socket %d", socket);
+//	else
+//		Log(LOG_ERROR, -1, "Failed to remove socket %d", socket);
 	if (socket + 1 >= s.maxfdp1)
 	{
 		/* now we have to reset s.maxfdp1 */
@@ -571,7 +571,7 @@ void Socket_close(int socket)
 		while (ListNextElement(s.clientsds, &cur_clientsds))
 			s.maxfdp1 = max(*((int*)(cur_clientsds->content)), s.maxfdp1);
 		++(s.maxfdp1);
-		Log(TRACE_MAX, -1, "Reset max fdp1 to %d", s.maxfdp1);
+//		Log(TRACE_MAX, -1, "Reset max fdp1 to %d", s.maxfdp1);
 	}
 	FUNC_EXIT;
 }
@@ -641,11 +641,12 @@ int Socket_new(char* addr, int port, int* sock)
 
 		freeaddrinfo(result);
 	}
-	else
-	  	Log(LOG_ERROR, -1, "getaddrinfo failed for addr %s with rc %d", addr, rc);
+//	else
+//	  	Log(LOG_ERROR, -1, "getaddrinfo failed for addr %s with rc %d", addr, rc);
 
 	if (rc != 0)
-		Log(LOG_ERROR, -1, "%s is not a valid IP address", addr);
+        ;
+//		Log(LOG_ERROR, -1, "%s is not a valid IP address", addr);
 	else
 	{
 		*sock =	(int)socket(family, type, 0);
@@ -656,11 +657,11 @@ int Socket_new(char* addr, int port, int* sock)
 #if defined(NOSIGPIPE)
 			int opt = 1;
 
-			if (setsockopt(*sock, SOL_SOCKET, SO_NOSIGPIPE, (void*)&opt, sizeof(opt)) != 0)
-				Log(LOG_ERROR, -1, "Could not set SO_NOSIGPIPE for socket %d", *sock);
+//			if (setsockopt(*sock, SOL_SOCKET, SO_NOSIGPIPE, (void*)&opt, sizeof(opt)) != 0)
+//				Log(LOG_ERROR, -1, "Could not set SO_NOSIGPIPE for socket %d", *sock);
 #endif
 
-			Log(TRACE_MIN, -1, "New socket %d for %s, port %d",	*sock, addr, port);
+//			Log(TRACE_MIN, -1, "New socket %d for %s, port %d",	*sock, addr, port);
 			if (Socket_addSocket(*sock) == SOCKET_ERROR)
 				rc = Socket_error("setnonblocking", *sock);
 			else
@@ -679,7 +680,7 @@ int Socket_new(char* addr, int port, int* sock)
 					int* pnewSd = (int*)malloc(sizeof(int));
 					*pnewSd = *sock;
 					ListAppend(s.connect_pending, pnewSd, sizeof(int));
-					Log(TRACE_MIN, 15, "Connect pending");
+//					Log(TRACE_MIN, 15, "Connect pending");
 				}
 			}
 		}
@@ -750,10 +751,10 @@ int Socket_continueWrite(int socket)
 				if (pw->frees[i])
 					free(pw->iovecs[i].iov_base);
 			}
-			Log(TRACE_MIN, -1, "ContinueWrite: partial write now complete for socket %d", socket);		
+//			Log(TRACE_MIN, -1, "ContinueWrite: partial write now complete for socket %d", socket);		
 		}
-		else
-			Log(TRACE_MIN, -1, "ContinueWrite wrote +%lu bytes on socket %d", bytes, socket);
+//		else
+//			Log(TRACE_MIN, -1, "ContinueWrite wrote +%lu bytes on socket %d", bytes, socket);
 	}
 #if defined(OPENSSL)
 exit:
@@ -779,12 +780,12 @@ int Socket_continueWrites(fd_set* pwset)
 		int socket = *(int*)(curpending->content);
 		if (FD_ISSET(socket, pwset) && Socket_continueWrite(socket))
 		{
-			if (!SocketBuffer_writeComplete(socket))
-				Log(LOG_SEVERE, -1, "Failed to remove pending write from socket buffer list");
+//			if (!SocketBuffer_writeComplete(socket))
+//				Log(LOG_SEVERE, -1, "Failed to remove pending write from socket buffer list");
 			FD_CLR(socket, &(s.pending_wset));
 			if (!ListRemove(s.write_pending, curpending->content))
 			{
-				Log(LOG_SEVERE, -1, "Failed to remove pending write from list");
+//				Log(LOG_SEVERE, -1, "Failed to remove pending write from list");
 				ListNextElement(s.write_pending, &curpending);
 			}
 			curpending = s.write_pending->current;
@@ -859,12 +860,12 @@ char* Socket_getpeer(int sock)
 
 #if defined(Socket_TEST)
 
-int main(int argc, char *argv[])
-{
-	Socket_connect("127.0.0.1", 1883);
-	Socket_connect("localhost", 1883);
-	Socket_connect("loadsadsacalhost", 1883);
-}
+//int main(int argc, char *argv[])
+//{
+//	Socket_connect("127.0.0.1", 1883);
+//	Socket_connect("localhost", 1883);
+//	Socket_connect("loadsadsacalhost", 1883);
+//}
 
 #endif
 

@@ -26,7 +26,7 @@
 
 
 #include "MQTTPacketOut.h"
-#include "Log.h"
+#include "conf.h"
 #include "StackTrace.h"
 
 #include <string.h>
@@ -101,7 +101,7 @@ int MQTTPacket_send_connect(Clients* client, int MQTTVersion)
 		writeUTF(&ptr, client->password);
 
 	rc = MQTTPacket_send(&client->net, packet.header, buf, len, 1);
-	Log(LOG_PROTOCOL, 0, NULL, client->net.socket, client->clientID, client->cleansession, rc);
+	//Log(LOG_PROTOCOL, 0, NULL, client->net.socket, client->clientID, client->cleansession, rc);
 exit:
 	if (rc != TCPSOCKET_INTERRUPTED)
 		free(buf);
@@ -147,7 +147,7 @@ int MQTTPacket_send_pingreq(networkHandles* net, const char* clientID)
 	header.byte = 0;
 	header.bits.type = PINGREQ;
 	rc = MQTTPacket_send(net, header, NULL, buflen,0);
-	Log(LOG_PROTOCOL, 20, NULL, net->socket, clientID, rc);
+	//Log(LOG_PROTOCOL, 20, NULL, net->socket, clientID, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -191,7 +191,7 @@ int MQTTPacket_send_subscribe(List* topics, List* qoss, int msgid, int dup, netw
 		writeChar(&ptr, *(int*)(qosElem->content));
 	}
 	rc = MQTTPacket_send(net, header, data, datalen, 1);
-	Log(LOG_PROTOCOL, 22, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 22, NULL, net->socket, clientID, msgid, rc);
 	if (rc != TCPSOCKET_INTERRUPTED)
 		free(data);
 	FUNC_EXIT_RC(rc);
@@ -260,7 +260,7 @@ int MQTTPacket_send_unsubscribe(List* topics, int msgid, int dup, networkHandles
 	while (ListNextElement(topics, &elem))
 		writeUTF(&ptr, (char*)(elem->content));
 	rc = MQTTPacket_send(net, header, data, datalen, 1);
-	Log(LOG_PROTOCOL, 25, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 25, NULL, net->socket, clientID, msgid, rc);
 	if (rc != TCPSOCKET_INTERRUPTED)
 		free(data);
 	FUNC_EXIT_RC(rc);

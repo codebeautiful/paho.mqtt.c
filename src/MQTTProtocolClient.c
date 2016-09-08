@@ -28,6 +28,7 @@
 
 
 #include <stdlib.h>
+#include "conf.h"
 
 #include "MQTTProtocolClient.h"
 #if !defined(NO_PERSISTENCE)
@@ -97,14 +98,14 @@ void MQTTProtocol_storeQoS0(Clients* pubclient, Publish* publish)
 	FUNC_ENTRY;
 	/* store the publication until the write is finished */
 	pw = malloc(sizeof(pending_write));
-	Log(TRACE_MIN, 12, NULL);
+//	Log(TRACE_MIN, 12, NULL);
 	pw->p = MQTTProtocol_storePublication(publish, &len);
 	pw->socket = pubclient->net.socket;
 	ListAppend(&(state.pending_writes), pw, sizeof(pending_write)+len);
 	/* we don't copy QoS 0 messages unless we have to, so now we have to tell the socket buffer where
 	the saved copy is */
-	if (SocketBuffer_updateWrite(pw->socket, pw->p->topic, pw->p->payload) == NULL)
-		Log(LOG_SEVERE, 0, "Error updating write");
+//	if (SocketBuffer_updateWrite(pw->socket, pw->p->topic, pw->p->payload) == NULL)
+//		Log(LOG_SEVERE, 0, "Error updating write");
 	FUNC_EXIT;
 }
 
@@ -263,8 +264,8 @@ int MQTTProtocol_handlePublishes(void* pack, int sock)
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
 	clientid = client->clientID;
-	Log(LOG_PROTOCOL, 11, NULL, sock, clientid, publish->msgId, publish->header.bits.qos,
-					publish->header.bits.retain, min(20, publish->payloadlen), publish->payload);
+//	Log(LOG_PROTOCOL, 11, NULL, sock, clientid, publish->msgId, publish->header.bits.qos,
+//					publish->header.bits.retain, min(20, publish->payloadlen), publish->payload);
 
 	if (publish->header.bits.qos == 0)
 		Protocol_processPublication(publish, client);
@@ -317,19 +318,21 @@ int MQTTProtocol_handlePubacks(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 14, NULL, sock, client->clientID, puback->msgId);
+//	Log(LOG_PROTOCOL, 14, NULL, sock, client->clientID, puback->msgId);
 
 	/* look for the message by message id in the records of outbound messages for this client */
 	if (ListFindItem(client->outboundMsgs, &(puback->msgId), messageIDCompare) == NULL)
-		Log(TRACE_MIN, 3, NULL, "PUBACK", client->clientID, puback->msgId);
+        ;
+//		Log(TRACE_MIN, 3, NULL, "PUBACK", client->clientID, puback->msgId);
 	else
 	{
 		Messages* m = (Messages*)(client->outboundMsgs->current->content);
 		if (m->qos != 1)
-			Log(TRACE_MIN, 4, NULL, "PUBACK", client->clientID, puback->msgId, m->qos);
+            ;
+//            Log(TRACE_MIN, 4, NULL, "PUBACK", client->clientID, puback->msgId, m->qos);
 		else
 		{
-			Log(TRACE_MIN, 6, NULL, "PUBACK", client->clientID, puback->msgId);
+//			Log(TRACE_MIN, 6, NULL, "PUBACK", client->clientID, puback->msgId);
 			#if !defined(NO_PERSISTENCE)
 				rc = MQTTPersistence_remove(client, PERSISTENCE_PUBLISH_SENT, m->qos, puback->msgId);
 			#endif
@@ -357,14 +360,15 @@ int MQTTProtocol_handlePubrecs(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 15, NULL, sock, client->clientID, pubrec->msgId);
+//	Log(LOG_PROTOCOL, 15, NULL, sock, client->clientID, pubrec->msgId);
 
 	/* look for the message by message id in the records of outbound messages for this client */
 	client->outboundMsgs->current = NULL;
 	if (ListFindItem(client->outboundMsgs, &(pubrec->msgId), messageIDCompare) == NULL)
 	{
 		if (pubrec->header.bits.dup == 0)
-			Log(TRACE_MIN, 3, NULL, "PUBREC", client->clientID, pubrec->msgId);
+            ;
+//			Log(TRACE_MIN, 3, NULL, "PUBREC", client->clientID, pubrec->msgId);
 	}
 	else
 	{
@@ -372,12 +376,14 @@ int MQTTProtocol_handlePubrecs(void* pack, int sock)
 		if (m->qos != 2)
 		{
 			if (pubrec->header.bits.dup == 0)
-				Log(TRACE_MIN, 4, NULL, "PUBREC", client->clientID, pubrec->msgId, m->qos);
+                ;
+//				Log(TRACE_MIN, 4, NULL, "PUBREC", client->clientID, pubrec->msgId, m->qos);
 		}
 		else if (m->nextMessageType != PUBREC)
 		{
 			if (pubrec->header.bits.dup == 0)
-				Log(TRACE_MIN, 5, NULL, "PUBREC", client->clientID, pubrec->msgId);
+                ;
+//				Log(TRACE_MIN, 5, NULL, "PUBREC", client->clientID, pubrec->msgId);
 		}
 		else
 		{
@@ -406,13 +412,14 @@ int MQTTProtocol_handlePubrels(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 17, NULL, sock, client->clientID, pubrel->msgId);
+//	Log(LOG_PROTOCOL, 17, NULL, sock, client->clientID, pubrel->msgId);
 
 	/* look for the message by message id in the records of inbound messages for this client */
 	if (ListFindItem(client->inboundMsgs, &(pubrel->msgId), messageIDCompare) == NULL)
 	{
 		if (pubrel->header.bits.dup == 0)
-			Log(TRACE_MIN, 3, NULL, "PUBREL", client->clientID, pubrel->msgId);
+            ;
+//			Log(TRACE_MIN, 3, NULL, "PUBREL", client->clientID, pubrel->msgId);
 		else
 			/* Apparently this is "normal" behaviour, so we don't need to issue a warning */
 			rc = MQTTPacket_send_pubcomp(pubrel->msgId, &client->net, client->clientID);
@@ -421,9 +428,11 @@ int MQTTProtocol_handlePubrels(void* pack, int sock)
 	{
 		Messages* m = (Messages*)(client->inboundMsgs->current->content);
 		if (m->qos != 2)
-			Log(TRACE_MIN, 4, NULL, "PUBREL", client->clientID, pubrel->msgId, m->qos);
+            ;
+//			Log(TRACE_MIN, 4, NULL, "PUBREL", client->clientID, pubrel->msgId, m->qos);
 		else if (m->nextMessageType != PUBREL)
-			Log(TRACE_MIN, 5, NULL, "PUBREL", client->clientID, pubrel->msgId);
+            ;
+//			Log(TRACE_MIN, 5, NULL, "PUBREL", client->clientID, pubrel->msgId);
 		else
 		{
 			Publish publish;
@@ -466,26 +475,29 @@ int MQTTProtocol_handlePubcomps(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 19, NULL, sock, client->clientID, pubcomp->msgId);
+//	Log(LOG_PROTOCOL, 19, NULL, sock, client->clientID, pubcomp->msgId);
 
 	/* look for the message by message id in the records of outbound messages for this client */
 	if (ListFindItem(client->outboundMsgs, &(pubcomp->msgId), messageIDCompare) == NULL)
 	{
 		if (pubcomp->header.bits.dup == 0)
-			Log(TRACE_MIN, 3, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
+            ;
+//			Log(TRACE_MIN, 3, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
 	}
 	else
 	{
 		Messages* m = (Messages*)(client->outboundMsgs->current->content);
 		if (m->qos != 2)
-			Log(TRACE_MIN, 4, NULL, "PUBCOMP", client->clientID, pubcomp->msgId, m->qos);
+            ;
+//			Log(TRACE_MIN, 4, NULL, "PUBCOMP", client->clientID, pubcomp->msgId, m->qos);
 		else
 		{
 			if (m->nextMessageType != PUBCOMP)
-				Log(TRACE_MIN, 5, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
+                ;
+//				Log(TRACE_MIN, 5, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
 			else
 			{
-				Log(TRACE_MIN, 6, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
+//				Log(TRACE_MIN, 6, NULL, "PUBCOMP", client->clientID, pubcomp->msgId);
 				#if !defined(NO_PERSISTENCE)
 					rc = MQTTPersistence_remove(client, PERSISTENCE_PUBLISH_SENT, m->qos, pubcomp->msgId);
 				#endif
@@ -525,7 +537,7 @@ void MQTTProtocol_keepalive(time_t now)
 				{
 					if (MQTTPacket_send_pingreq(&client->net, client->clientID) != TCPSOCKET_COMPLETE)
 					{
-						Log(TRACE_PROTOCOL, -1, "Error sending PINGREQ for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
+//						Log(TRACE_PROTOCOL, -1, "Error sending PINGREQ for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
 						MQTTProtocol_closeSession(client, 1);
 					}
 					else
@@ -537,7 +549,7 @@ void MQTTProtocol_keepalive(time_t now)
 			}
 			else
 			{
-				Log(TRACE_PROTOCOL, -1, "PINGRESP not received in keepalive interval for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
+//				Log(TRACE_PROTOCOL, -1, "PINGRESP not received in keepalive interval for client %s on socket %d, disconnecting", client->clientID, client->net.socket);
 				MQTTProtocol_closeSession(client, 1);
 			}
 		}
@@ -573,7 +585,7 @@ void MQTTProtocol_retries(time_t now, Clients* client, int regardless)
 				Publish publish;
 				int rc;
 
-				Log(TRACE_MIN, 7, NULL, "PUBLISH", client->clientID, client->net.socket, m->msgid);
+//				Log(TRACE_MIN, 7, NULL, "PUBLISH", client->clientID, client->net.socket, m->msgid);
 				publish.msgId = m->msgid;
 				publish.topic = m->publish->topic;
 				publish.payload = m->publish->payload;
@@ -582,8 +594,8 @@ void MQTTProtocol_retries(time_t now, Clients* client, int regardless)
 				if (rc == SOCKET_ERROR)
 				{
 					client->good = 0;
-					Log(TRACE_PROTOCOL, 29, NULL, client->clientID, client->net.socket,
-												Socket_getpeer(client->net.socket));
+//					Log(TRACE_PROTOCOL, 29, NULL, client->clientID, client->net.socket,
+//												Socket_getpeer(client->net.socket));
 					MQTTProtocol_closeSession(client, 1);
 					client = NULL;
 				}
@@ -596,12 +608,12 @@ void MQTTProtocol_retries(time_t now, Clients* client, int regardless)
 			}
 			else if (m->qos && m->nextMessageType == PUBCOMP)
 			{
-				Log(TRACE_MIN, 7, NULL, "PUBREL", client->clientID, client->net.socket, m->msgid);
+//				Log(TRACE_MIN, 7, NULL, "PUBREL", client->clientID, client->net.socket, m->msgid);
 				if (MQTTPacket_send_pubrel(m->msgid, 0, &client->net, client->clientID) != TCPSOCKET_COMPLETE)
 				{
 					client->good = 0;
-					Log(TRACE_PROTOCOL, 29, NULL, client->clientID, client->net.socket,
-							Socket_getpeer(client->net.socket));
+//					Log(TRACE_PROTOCOL, 29, NULL, client->clientID, client->net.socket,
+//							Socket_getpeer(client->net.socket));
 					MQTTProtocol_closeSession(client, 1);
 					client = NULL;
 				}
@@ -735,7 +747,8 @@ char* MQTTStrncpy(char *dest, const char *src, size_t dest_size)
 
   FUNC_ENTRY; 
   if (dest_size < strlen(src))
-    Log(TRACE_MIN, -1, "the src string is truncated");
+      ;
+//    Log(TRACE_MIN, -1, "the src string is truncated");
 
   /* We must copy only the first (dest_size - 1) bytes */
   while (count > 1 && (*temp++ = *src++))

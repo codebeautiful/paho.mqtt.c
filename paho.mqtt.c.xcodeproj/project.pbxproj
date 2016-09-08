@@ -1,0 +1,182 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		E54C43B91D7D897000A86590 /* .cproject */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = .cproject; sourceTree = "<group>"; };
+		E54C43BA1D7D897000A86590 /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .git; sourceTree = "<group>"; };
+		E54C43BB1D7D897000A86590 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E54C43BC1D7D897000A86590 /* .gitreview */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitreview; sourceTree = "<group>"; };
+		E54C43BD1D7D897000A86590 /* .project */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
+		E54C43BE1D7D897000A86590 /* .pydevproject */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = .pydevproject; sourceTree = "<group>"; };
+		E54C43BF1D7D897000A86590 /* .settings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .settings; sourceTree = "<group>"; };
+		E54C43C01D7D897000A86590 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		E54C43C11D7D897000A86590 /* about.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		E54C43C21D7D897000A86590 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
+		E54C43C31D7D897000A86590 /* build.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = build.xml; sourceTree = "<group>"; };
+		E54C43C41D7D897000A86590 /* cmake */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cmake; sourceTree = "<group>"; };
+		E54C43C51D7D897000A86590 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		E54C43C61D7D897000A86590 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		E54C43C71D7D897000A86590 /* doc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = doc; sourceTree = "<group>"; };
+		E54C43C81D7D897000A86590 /* edl-v10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "edl-v10"; sourceTree = "<group>"; };
+		E54C43C91D7D897000A86590 /* epl-v10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "epl-v10"; sourceTree = "<group>"; };
+		E54C43CA1D7D897000A86590 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E54C43CB1D7D897000A86590 /* notice.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = notice.html; sourceTree = "<group>"; };
+		E54C43CC1D7D897000A86590 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E54C43CD1D7D897000A86590 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		E54C43CE1D7D897000A86590 /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+		E54C43CF1D7D897000A86590 /* Untitled.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = Untitled.xcworkspace; sourceTree = "<group>"; };
+		E54C43D01D7D897000A86590 /* Windows Build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Windows Build"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		E54C43B31D7D897000A86590 = {
+			isa = PBXGroup;
+			children = (
+				E54C43B91D7D897000A86590 /* .cproject */,
+				E54C43BA1D7D897000A86590 /* .git */,
+				E54C43BB1D7D897000A86590 /* .gitignore */,
+				E54C43BC1D7D897000A86590 /* .gitreview */,
+				E54C43BD1D7D897000A86590 /* .project */,
+				E54C43BE1D7D897000A86590 /* .pydevproject */,
+				E54C43BF1D7D897000A86590 /* .settings */,
+				E54C43C01D7D897000A86590 /* .travis.yml */,
+				E54C43C11D7D897000A86590 /* about.html */,
+				E54C43C21D7D897000A86590 /* build */,
+				E54C43C31D7D897000A86590 /* build.xml */,
+				E54C43C41D7D897000A86590 /* cmake */,
+				E54C43C51D7D897000A86590 /* CMakeLists.txt */,
+				E54C43C61D7D897000A86590 /* CONTRIBUTING.md */,
+				E54C43C71D7D897000A86590 /* doc */,
+				E54C43C81D7D897000A86590 /* edl-v10 */,
+				E54C43C91D7D897000A86590 /* epl-v10 */,
+				E54C43CA1D7D897000A86590 /* Makefile */,
+				E54C43CB1D7D897000A86590 /* notice.html */,
+				E54C43CC1D7D897000A86590 /* README.md */,
+				E54C43CD1D7D897000A86590 /* src */,
+				E54C43CE1D7D897000A86590 /* test */,
+				E54C43CF1D7D897000A86590 /* Untitled.xcworkspace */,
+				E54C43D01D7D897000A86590 /* Windows Build */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		E54C43B81D7D897000A86590 /* paho.mqtt.c */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = E54C43D11D7D897000A86590 /* Build configuration list for PBXLegacyTarget "paho.mqtt.c" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/tong/work/paho.mqtt.c;
+			dependencies = (
+			);
+			name = paho.mqtt.c;
+			passBuildSettingsInEnvironment = 1;
+			productName = paho.mqtt.c;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		E54C43B41D7D897000A86590 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = E54C43B71D7D897000A86590 /* Build configuration list for PBXProject "paho.mqtt.c" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E54C43B31D7D897000A86590;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E54C43B81D7D897000A86590 /* paho.mqtt.c */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		E54C43B51D7D897000A86590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		E54C43B61D7D897000A86590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		E54C43D21D7D897000A86590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = paho.mqtt.c;
+			};
+			name = Debug;
+		};
+		E54C43D31D7D897000A86590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = paho.mqtt.c;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E54C43B71D7D897000A86590 /* Build configuration list for PBXProject "paho.mqtt.c" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E54C43B51D7D897000A86590 /* Debug */,
+				E54C43B61D7D897000A86590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E54C43D11D7D897000A86590 /* Build configuration list for PBXLegacyTarget "paho.mqtt.c" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E54C43D21D7D897000A86590 /* Debug */,
+				E54C43D31D7D897000A86590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E54C43B41D7D897000A86590 /* Project object */;
+}

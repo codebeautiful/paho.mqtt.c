@@ -175,35 +175,35 @@ void printEyecatchers(char* filename)
 }
 
 
-int main(int argc, char** argv)
-{
-	printf("MQTTVersion: print the version strings of an MQTT client library\n"); 
-	printf("Copyright (c) 2012, 2015 IBM Corp.\n");
-	
-	if (argc == 1)
-	{
-		int i = 0;
-		char namebuf[60];
-		
-		printf("Specify a particular library name if it is not in the current directory, or not executable on this platform\n");
-		 
-		for (i = 0; i < ARRAY_SIZE(libraries); ++i)
-		{
-#if defined(WIN32) || defined(WIN64)
-			sprintf(namebuf, "%s.dll", libraries[i]);
-#else
-			sprintf(namebuf, "lib%s.so.1", libraries[i]);
-#endif
-			printf("--- Trying library %s ---\n", libraries[i]);
-			if (!loadandcall(namebuf))
-				printEyecatchers(namebuf);
-		}
-	}
-	else
-	{
-		if (!loadandcall(argv[1]))
-			printEyecatchers(argv[1]);
-	}
-
-	return 0;
-}
+//int main(int argc, char** argv)
+//{
+//	printf("MQTTVersion: print the version strings of an MQTT client library\n"); 
+//	printf("Copyright (c) 2012, 2015 IBM Corp.\n");
+//	
+//	if (argc == 1)
+//	{
+//		int i = 0;
+//		char namebuf[60];
+//		
+//		printf("Specify a particular library name if it is not in the current directory, or not executable on this platform\n");
+//		 
+//		for (i = 0; i < ARRAY_SIZE(libraries); ++i)
+//		{
+//#if defined(WIN32) || defined(WIN64)
+//			sprintf(namebuf, "%s.dll", libraries[i]);
+//#else
+//			sprintf(namebuf, "lib%s.so.1", libraries[i]);
+//#endif
+//			printf("--- Trying library %s ---\n", libraries[i]);
+//			if (!loadandcall(namebuf))
+//				printEyecatchers(namebuf);
+//		}
+//	}
+//	else
+//	{
+//		if (!loadandcall(argv[1]))
+//			printEyecatchers(argv[1]);
+//	}
+//
+//	return 0;
+//}

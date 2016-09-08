@@ -250,8 +250,8 @@ int MQTTPersistence_restore(Clients *c)
 		if (msgkeys)
 			free(msgkeys);
 	}
-	Log(TRACE_MINIMUM, -1, "%d sent messages and %d received messages restored for client %s\n", 
-		msgs_sent, msgs_rcvd, c->clientID);
+//	Log(TRACE_MINIMUM, -1, "%d sent messages and %d received messages restored for client %s\n", 
+//		msgs_sent, msgs_rcvd, c->clientID);
 	MQTTPersistence_wrapMsgID(c);
 
 	FUNC_EXIT_RC(rc);
@@ -473,8 +473,8 @@ int MQTTPersistence_unpersistQueueEntry(Clients* client, MQTTPersistence_qEntry*
 	
 	FUNC_ENTRY;
 	sprintf(key, "%s%d", PERSISTENCE_QUEUE_KEY, qe->seqno);
-	if ((rc = client->persistence->premove(client->phandle, key)) != 0)
-		Log(LOG_ERROR, 0, "Error %d removing qEntry from persistence", rc);
+//	if ((rc = client->persistence->premove(client->phandle, key)) != 0)
+//		Log(LOG_ERROR, 0, "Error %d removing qEntry from persistence", rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -520,8 +520,8 @@ int MQTTPersistence_persistQueueEntry(Clients* aclient, MQTTPersistence_qEntry* 
 	sprintf(key, "%s%d", PERSISTENCE_QUEUE_KEY, ++aclient->qentry_seqno);	
 	qe->seqno = aclient->qentry_seqno;
 
-	if ((rc = aclient->persistence->pput(aclient->phandle, key, nbufs, (char**)bufs, lens)) != 0)
-		Log(LOG_ERROR, 0, "Error persisting queue entry, rc %d", rc);
+//	if ((rc = aclient->persistence->pput(aclient->phandle, key, nbufs, (char**)bufs, lens)) != 0)
+//		Log(LOG_ERROR, 0, "Error persisting queue entry, rc %d", rc);
 
 	free(lens);
 	free(bufs);
@@ -636,7 +636,7 @@ int MQTTPersistence_restoreMessageQueue(Clients* c)
 		if (msgkeys != NULL)
 			free(msgkeys);
 	}
-	Log(TRACE_MINIMUM, -1, "%d queued messages restored for client %s", entries_restored, c->clientID);
+//	Log(TRACE_MINIMUM, -1, "%d queued messages restored for client %s", entries_restored, c->clientID);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }

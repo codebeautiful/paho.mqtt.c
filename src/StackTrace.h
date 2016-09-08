@@ -18,7 +18,7 @@
 #define STACKTRACE_H_
 
 #include <stdio.h>
-#include "Log.h"
+#include "conf.h"
 #include "Thread.h"
 
 #if defined(NOSTACKTRACE)

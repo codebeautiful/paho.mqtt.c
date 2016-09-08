@@ -464,33 +464,33 @@ thread_return_type secondary(void* n)
 }
 
 
-int main(int argc, char *argv[])
-{
-	int rc = 0;
-
-	sem_type sem = Thread_create_sem();
-
-	printf("check sem %d\n", Thread_check_sem(sem));
-
-	printf("post secondary\n");
-	rc = Thread_post_sem(sem);
-	printf("posted secondary %d\n", rc);
-
-	printf("check sem %d\n", Thread_check_sem(sem));
-
-	printf("Starting secondary thread\n");
-	Thread_start(secondary, (void*)sem);
-
-	sleep(3);
-	printf("check sem %d\n", Thread_check_sem(sem));
-
-	printf("post secondary\n");
-	rc = Thread_post_sem(sem);
-	printf("posted secondary %d\n", rc);
-
-	sleep(3);
-
-	printf("Main thread ending\n");
-}
+//int main(int argc, char *argv[])
+//{
+//	int rc = 0;
+//
+//	sem_type sem = Thread_create_sem();
+//
+//	printf("check sem %d\n", Thread_check_sem(sem));
+//
+//	printf("post secondary\n");
+//	rc = Thread_post_sem(sem);
+//	printf("posted secondary %d\n", rc);
+//
+//	printf("check sem %d\n", Thread_check_sem(sem));
+//
+//	printf("Starting secondary thread\n");
+//	Thread_start(secondary, (void*)sem);
+//
+//	sleep(3);
+//	printf("check sem %d\n", Thread_check_sem(sem));
+//
+//	printf("post secondary\n");
+//	rc = Thread_post_sem(sem);
+//	printf("posted secondary %d\n", rc);
+//
+//	sleep(3);
+//
+//	printf("Main thread ending\n");
+//}
 
 #endif

@@ -444,51 +444,51 @@ int stringcompare(void* a, void* b)
 #if defined(UNIT_TESTS)
 
 
-int main(int argc, char *argv[])
-{
-	int i, *ip, *todelete;
-	ListElement* current = NULL;
-	List* l = ListInitialize();
-	printf("List initialized\n");
-
-	for (i = 0; i < 10; i++)
-	{
-		ip = malloc(sizeof(int));
-		*ip = i;
-		ListAppend(l, (void*)ip, sizeof(int));
-		if (i==5)
-			todelete = ip;
-		printf("List element appended %d\n",  *((int*)(l->last->content)));
-	}
-
-	printf("List contents:\n");
-	current = NULL;
-	while (ListNextElement(l, &current) != NULL)
-		printf("List element: %d\n", *((int*)(current->content)));
-
-	printf("List contents in reverse order:\n");
-	current = NULL;
-	while (ListPrevElement(l, &current) != NULL)
-		printf("List element: %d\n", *((int*)(current->content)));
-
-	//if ListFindItem(l, *ip, intcompare)->content
-
-	printf("List contents having deleted element %d:\n", *todelete);
-	ListRemove(l, todelete);
-	current = NULL;
-	while (ListNextElement(l, &current) != NULL)
-		printf("List element: %d\n", *((int*)(current->content)));
-
-	i = 9;
-	ListRemoveItem(l, &i, intcompare);
-	printf("List contents having deleted another element, %d, size now %d:\n", i, l->size);
-	current = NULL;
-	while (ListNextElement(l, &current) != NULL)
-		printf("List element: %d\n", *((int*)(current->content)));
-
-	ListFree(l);
-	printf("List freed\n");
-}
+//int main(int argc, char *argv[])
+//{
+//	int i, *ip, *todelete;
+//	ListElement* current = NULL;
+//	List* l = ListInitialize();
+//	printf("List initialized\n");
+//
+//	for (i = 0; i < 10; i++)
+//	{
+//		ip = malloc(sizeof(int));
+//		*ip = i;
+//		ListAppend(l, (void*)ip, sizeof(int));
+//		if (i==5)
+//			todelete = ip;
+//		printf("List element appended %d\n",  *((int*)(l->last->content)));
+//	}
+//
+//	printf("List contents:\n");
+//	current = NULL;
+//	while (ListNextElement(l, &current) != NULL)
+//		printf("List element: %d\n", *((int*)(current->content)));
+//
+//	printf("List contents in reverse order:\n");
+//	current = NULL;
+//	while (ListPrevElement(l, &current) != NULL)
+//		printf("List element: %d\n", *((int*)(current->content)));
+//
+//	//if ListFindItem(l, *ip, intcompare)->content
+//
+//	printf("List contents having deleted element %d:\n", *todelete);
+//	ListRemove(l, todelete);
+//	current = NULL;
+//	while (ListNextElement(l, &current) != NULL)
+//		printf("List element: %d\n", *((int*)(current->content)));
+//
+//	i = 9;
+//	ListRemoveItem(l, &i, intcompare);
+//	printf("List contents having deleted another element, %d, size now %d:\n", i, l->size);
+//	current = NULL;
+//	while (ListNextElement(l, &current) != NULL)
+//		printf("List element: %d\n", *((int*)(current->content)));
+//
+//	ListFree(l);
+//	printf("List freed\n");
+//}
 
 #endif
 

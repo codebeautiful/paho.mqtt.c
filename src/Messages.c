@@ -22,7 +22,7 @@
 
 
 #include "Messages.h"
-#include "Log.h"
+#include "conf.h"
 
 #include <stdio.h>
 #include <stdlib.h>

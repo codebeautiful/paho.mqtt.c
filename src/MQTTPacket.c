@@ -24,7 +24,7 @@
  */
 
 #include "MQTTPacket.h"
-#include "Log.h"
+#include "conf.h"
 #if !defined(NO_PERSISTENCE)
 	#include "MQTTPersistence.h"
 #endif
@@ -136,7 +136,8 @@ void* MQTTPacket_Factory(networkHandles* net, int* error)
 	{
 		ptype = header.bits.type;
 		if (ptype < CONNECT || ptype > DISCONNECT || new_packets[ptype] == NULL)
-			Log(TRACE_MIN, 2, NULL, ptype);
+            ;
+            //Log(TRACE_MIN, 2, NULL, ptype);
 		else
 		{
 			if ((pack = (*new_packets[ptype])(header.byte, data, remaining_length)) == NULL)
@@ -466,7 +467,7 @@ int MQTTPacket_send_disconnect(networkHandles *net, const char* clientID)
 	header.byte = 0;
 	header.bits.type = DISCONNECT;
 	rc = MQTTPacket_send(net, header, NULL, 0, 0);
-	Log(LOG_PROTOCOL, 28, NULL, net->socket, clientID, rc);
+	//Log(LOG_PROTOCOL, 28, NULL, net->socket, clientID, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -561,7 +562,7 @@ int MQTTPacket_send_puback(int msgid, networkHandles* net, const char* clientID)
 
 	FUNC_ENTRY;
 	rc =  MQTTPacket_send_ack(PUBACK, msgid, 0, net);
-	Log(LOG_PROTOCOL, 12, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 12, NULL, net->socket, clientID, msgid, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -594,7 +595,7 @@ int MQTTPacket_send_pubrec(int msgid, networkHandles* net, const char* clientID)
 
 	FUNC_ENTRY;
 	rc =  MQTTPacket_send_ack(PUBREC, msgid, 0, net);
-	Log(LOG_PROTOCOL, 13, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 13, NULL, net->socket, clientID, msgid, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -614,7 +615,7 @@ int MQTTPacket_send_pubrel(int msgid, int dup, networkHandles* net, const char* 
 
 	FUNC_ENTRY;
 	rc = MQTTPacket_send_ack(PUBREL, msgid, dup, net);
-	Log(LOG_PROTOCOL, 16, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 16, NULL, net->socket, clientID, msgid, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -633,7 +634,7 @@ int MQTTPacket_send_pubcomp(int msgid, networkHandles* net, const char* clientID
 
 	FUNC_ENTRY;
 	rc = MQTTPacket_send_ack(PUBCOMP, msgid, 0, net);
-	Log(LOG_PROTOCOL, 18, NULL, net->socket, clientID, msgid, rc);
+	//Log(LOG_PROTOCOL, 18, NULL, net->socket, clientID, msgid, rc);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }
@@ -710,10 +711,12 @@ int MQTTPacket_send_publish(Publish* pack, int dup, int qos, int retained, netwo
 	if (rc != TCPSOCKET_INTERRUPTED)
 		free(topiclen);
 	if (qos == 0)
-		Log(LOG_PROTOCOL, 27, NULL, net->socket, clientID, retained, rc);
+        ;
+        //Log(LOG_PROTOCOL, 27, NULL, net->socket, clientID, retained, rc);
 	else
-		Log(LOG_PROTOCOL, 10, NULL, net->socket, clientID, pack->msgId, qos, retained, rc,
-				min(20, pack->payloadlen), pack->payload);
+        ;
+        //Log(LOG_PROTOCOL, 10, NULL, net->socket, clientID, pack->msgId, qos, retained, rc,
+//				min(20, pack->payloadlen), pack->payload);
 	FUNC_EXIT_RC(rc);
 	return rc;
 }

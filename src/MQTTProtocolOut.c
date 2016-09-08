@@ -144,7 +144,7 @@ int MQTTProtocol_handlePingresps(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 21, NULL, sock, client->clientID);
+	//Log(LOG_PROTOCOL, 21, NULL, sock, client->clientID);
 	client->ping_outstanding = 0;
 	FUNC_EXIT_RC(rc);
 	return rc;
@@ -184,7 +184,7 @@ int MQTTProtocol_handleSubacks(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 23, NULL, sock, client->clientID, suback->msgId);
+	//Log(LOG_PROTOCOL, 23, NULL, sock, client->clientID, suback->msgId);
 	MQTTPacket_freeSuback(suback);
 	FUNC_EXIT_RC(rc);
 	return rc;
@@ -223,7 +223,7 @@ int MQTTProtocol_handleUnsubacks(void* pack, int sock)
 
 	FUNC_ENTRY;
 	client = (Clients*)(ListFindItem(bstate->clients, &sock, clientSocketCompare)->content);
-	Log(LOG_PROTOCOL, 24, NULL, sock, client->clientID, unsuback->msgId);
+	//Log(LOG_PROTOCOL, 24, NULL, sock, client->clientID, unsuback->msgId);
 	free(unsuback);
 	FUNC_EXIT_RC(rc);
 	return rc;

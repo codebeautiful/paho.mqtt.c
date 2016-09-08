@@ -15,7 +15,7 @@
  *******************************************************************************/
 
 #include "StackTrace.h"
-#include "Log.h"
+#include "conf.h"
 #include "LinkedList.h"
 
 #include "Clients.h"
@@ -103,14 +103,14 @@ void StackTrace_entry(const char* name, int line, int trace_level)
 	Thread_lock_mutex(stack_mutex);
 	if (!setStack(1))
 		goto exit;
-	if (trace_level != -1)
-		Log_stackTrace(trace_level, 9, (int)cur_thread->id, cur_thread->current_depth, name, line, NULL);
+//	if (trace_level != -1)
+//		Log_stackTrace(trace_level, 9, (int)cur_thread->id, cur_thread->current_depth, name, line, NULL);
 	strncpy(cur_thread->callstack[cur_thread->current_depth].name, name, sizeof(cur_thread->callstack[0].name)-1);
 	cur_thread->callstack[(cur_thread->current_depth)++].line = line;
 	if (cur_thread->current_depth > cur_thread->maxdepth)
 		cur_thread->maxdepth = cur_thread->current_depth;
-	if (cur_thread->current_depth >= MAX_STACK_DEPTH)
-		Log(LOG_FATAL, -1, "Max stack depth exceeded");
+//	if (cur_thread->current_depth >= MAX_STACK_DEPTH)
+//		Log(LOG_FATAL, -1, "Max stack depth exceeded");
 exit:
 	Thread_unlock_mutex(stack_mutex);
 }
@@ -121,16 +121,16 @@ void StackTrace_exit(const char* name, int line, void* rc, int trace_level)
 	Thread_lock_mutex(stack_mutex);
 	if (!setStack(0))
 		goto exit;
-	if (--(cur_thread->current_depth) < 0)
-		Log(LOG_FATAL, -1, "Minimum stack depth exceeded for thread %lu", cur_thread->id);
-	if (strncmp(cur_thread->callstack[cur_thread->current_depth].name, name, sizeof(cur_thread->callstack[0].name)-1) != 0)
-		Log(LOG_FATAL, -1, "Stack mismatch. Entry:%s Exit:%s\n", cur_thread->callstack[cur_thread->current_depth].name, name);
+//	if (--(cur_thread->current_depth) < 0)
+//		Log(LOG_FATAL, -1, "Minimum stack depth exceeded for thread %lu", cur_thread->id);
+//	if (strncmp(cur_thread->callstack[cur_thread->current_depth].name, name, sizeof(cur_thread->callstack[0].name)-1) != 0)
+//		Log(LOG_FATAL, -1, "Stack mismatch. Entry:%s Exit:%s\n", cur_thread->callstack[cur_thread->current_depth].name, name);
 	if (trace_level != -1)
 	{
-		if (rc == NULL)
-			Log_stackTrace(trace_level, 10, (int)cur_thread->id, cur_thread->current_depth, name, line, NULL);
-		else
-			Log_stackTrace(trace_level, 11, (int)cur_thread->id, cur_thread->current_depth, name, line, (int*)rc);
+//		if (rc == NULL)
+//			Log_stackTrace(trace_level, 10, (int)cur_thread->id, cur_thread->current_depth, name, line, NULL);
+//		else
+//			Log_stackTrace(trace_level, 11, (int)cur_thread->id, cur_thread->current_depth, name, line, (int*)rc);
 	}
 exit:
 	Thread_unlock_mutex(stack_mutex);

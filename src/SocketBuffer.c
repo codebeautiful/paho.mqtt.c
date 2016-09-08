@@ -23,7 +23,7 @@
  */
 #include "SocketBuffer.h"
 #include "LinkedList.h"
-#include "Log.h"
+#include "conf.h"
 #include "Messages.h"
 #include "StackTrace.h"
 
@@ -197,13 +197,13 @@ int SocketBuffer_getQueuedChar(int socket, char* c)
 		if (queue->index < queue->headerlen)
 		{
 			*c = queue->fixed_header[(queue->index)++];
-			Log(TRACE_MAX, -1, "index is now %d, headerlen %d", queue->index, queue->headerlen);
+//			Log(TRACE_MAX, -1, "index is now %d, headerlen %d", queue->index, queue->headerlen);
 			rc = SOCKETBUFFER_COMPLETE;
 			goto exit;
 		}
 		else if (queue->index > 4)
 		{
-			Log(LOG_FATAL, -1, "header is already at full length");
+//			Log(LOG_FATAL, -1, "header is already at full length");
 			rc = SOCKET_ERROR;
 			goto exit;
 		}
@@ -281,12 +281,12 @@ void SocketBuffer_queueChar(int socket, char c)
 	}
 	else if (def_queue->socket != socket)
 	{
-		Log(LOG_FATAL, -1, "attempt to reuse socket queue");
+//		Log(LOG_FATAL, -1, "attempt to reuse socket queue");
 		error = 1;
 	}
 	if (curq->index > 4)
 	{
-		Log(LOG_FATAL, -1, "socket queue fixed_header field full");
+//		Log(LOG_FATAL, -1, "socket queue fixed_header field full");
 		error = 1;
 	}
 	if (!error)
@@ -294,7 +294,7 @@ void SocketBuffer_queueChar(int socket, char c)
 		curq->fixed_header[(curq->index)++] = c;
 		curq->headerlen = curq->index;
 	}
-	Log(TRACE_MAX, -1, "queueChar: index is now %d, headerlen %d", curq->index, curq->headerlen);
+//	Log(TRACE_MAX, -1, "queueChar: index is now %d, headerlen %d", curq->index, curq->headerlen);
 	FUNC_EXIT;
 }
 

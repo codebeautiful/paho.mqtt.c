@@ -691,13 +691,13 @@ int test(int limit)
 	return 0;
 }
 
-int main(int argc, char *argv[])
-{
-	int rc = 0;
-
-	while (rc == 0)
-		rc = test(999999);
-}
+//int main(int argc, char *argv[])
+//{
+//	int rc = 0;
+//
+//	while (rc == 0)
+//		rc = test(999999);
+//}
 
 #endif
 
